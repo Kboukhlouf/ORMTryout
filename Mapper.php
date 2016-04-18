@@ -14,7 +14,6 @@ abstract class Mapper
     protected $paramfile = 'param.ini';
     static protected $db;
     static protected $schema;
-    static protected $object;
     static protected $connect;
     protected $data;
     static protected $config;
@@ -63,8 +62,8 @@ abstract class Mapper
         }
     }
 
-    static public function getAllElements(){
-        $query = 'SELECT * FROM ' . self::$object . ';';
+    static public function getAllElements($object){
+        $query = 'SELECT * FROM ' . $object;
         $result = self::$connect->query($query);
         if(!$result){
             echo 'PDO::errorInfo()';
@@ -73,14 +72,14 @@ abstract class Mapper
         return $result->fetchAll();
     }
 
-    public function save()
+    public function save($object)
     {
         $id = $this->data['0'];
         $fieldsarray = array_map(array(__CLASS__,'strangeQuote'),self::$config);
         $valuesarray = array_map(array(__CLASS__,'quote'),$this->data);
         $fields = implode(' ,',$fieldsarray);
         $values = implode(' ,',$valuesarray);
-        $query = 'INSERT INTO '. self::$object . ' ( '. $fields . ') VALUES (' . $values . ');';
+        $query = 'INSERT INTO '. $object . ' ( '. $fields . ') VALUES (' . $values . ');';
         $result = self::$connect->exec($query);
         if(!$result){
         echo 'PDO::errorInfo()';
