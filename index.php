@@ -11,7 +11,10 @@
     $connect = Mapper::getConnection();
     echo '</br>';
 
-    foreach(Person::getAllElements() as $element){
+    $person1 = new Person(20,"Kokou","kaka@gmail.com");
+    $person1->save("Person");
+
+    foreach(Person::getAllElements("Person") as $element){
         echo print_r($element);
         echo '</br>';
     }
