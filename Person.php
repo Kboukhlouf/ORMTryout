@@ -30,10 +30,6 @@ class Person extends Mapper
         parent::__construct();
     }
 
-    static public function getElementsById($id)
-    {
-        parent::getElementsById(self::$object,$id);
-    }
 
     public function __get($att)
     {
